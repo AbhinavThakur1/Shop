@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        _customerName.onDeselect.AddListener(NameD);
+        _customerName.onSelect.AddListener(Name);
         _add.onClick.AddListener(AddProduct);
         _calculate.onClick.AddListener(CalculationPanel);
         _history.onClick.AddListener(HistoryPanel);
@@ -30,6 +32,22 @@ public class UIManager : MonoBehaviour
         _exit.onClick.AddListener(Exit);
     }
 
+    void NameD(string i)
+    {
+        if (i == " ")
+        {
+            _customerName.text = "";
+        }
+    }
+
+    void Name(string i)
+    {
+        if (i.Length < 1)
+        {
+            _customerName.text = " ";
+        }
+    }
+
     public void SumTotal()
     {
         _totalAmount = 0;
@@ -37,7 +55,7 @@ public class UIManager : MonoBehaviour
         {
             _totalAmount += product._totalProductPrice;
         }
-        _sumTotal.text = _totalAmount.ToString() + "Rs";
+        _sumTotal.text = _totalAmount.ToString();
     }
 
     void AddProduct()

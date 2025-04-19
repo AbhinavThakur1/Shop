@@ -13,14 +13,63 @@ public class ProductDetail : MonoBehaviour
     void Start()
     {
         _nameOfProduct.onValueChanged.AddListener(TotalAmountProduct);
+        _nameOfProduct.onSelect.AddListener(NameChanged);
+        _nameOfProduct.onDeselect.AddListener(NameChangedD);
         _quantityOfProduct.onValueChanged.AddListener(TotalAmountProduct);
+        _quantityOfProduct.onSelect.AddListener(Quantity);
+        _quantityOfProduct.onDeselect.AddListener(QuantityD);
         _priceOfProduct.onValueChanged.AddListener(TotalAmountProduct);
+        _priceOfProduct.onSelect.AddListener(Price);
+        _priceOfProduct.onDeselect.AddListener(PriceD);
         _delete.onClick.AddListener(DeleteEntry);
     }
 
-    void NameChanged()
+    void NameChanged(string i)
     {
-        _productName = _nameOfProduct.text;
+        if (i.Length < 1)
+        {
+            _nameOfProduct.text = " ";
+        }
+    }
+
+    void Quantity(string i)
+    {
+        if (i.Length < 1)
+        {
+            _quantityOfProduct.text = " ";
+        }
+    }
+
+    void Price(string i)
+    {
+        if (i.Length < 1)
+        {
+            _priceOfProduct.text = " ";
+        }
+    }
+
+    void NameChangedD(string i)
+    {
+        if (i == " ")
+        {
+            _nameOfProduct.text = "";
+        }
+    }
+
+    void QuantityD(string i)
+    {
+        if (i == " ")
+        {
+            _quantityOfProduct.text = "";
+        }
+    }
+
+    void PriceD(string i)
+    {
+        if (i == " ")
+        {
+            _priceOfProduct.text = "";
+        }
     }
 
     void TotalAmountProduct(string text)
@@ -28,7 +77,7 @@ public class ProductDetail : MonoBehaviour
         try
         {
             _quantity = int.Parse(_quantityOfProduct.text);
-            _totalProductCost.text = Mathf.Round(float.Parse(_quantityOfProduct.text) * float.Parse(_priceOfProduct.text)).ToString() + "Rs";
+            _totalProductCost.text = Mathf.Round(float.Parse(_quantityOfProduct.text) * float.Parse(_priceOfProduct.text)).ToString();
             _totalProductPrice = int.Parse(Mathf.Round(float.Parse(_quantityOfProduct.text) * float.Parse(_priceOfProduct.text)).ToString());
             FindFirstObjectByType<UIManager>().SumTotal();
         }
